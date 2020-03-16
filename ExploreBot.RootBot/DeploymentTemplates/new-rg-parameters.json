@@ -14,29 +14,14 @@
         "appSecret": {
             "value": ""
         },
-        "botId": {
-            "value": ""
-        },
         "botSku": {
-            "value": ""
-        },
-        "newAppServicePlanName": {
-            "value": ""
+            "value": "F0"
         },
         "newAppServicePlanSku": {
             "value": {
-                "name": "S1",
-                "tier": "Standard",
-                "size": "S1",
-                "family": "S",
-                "capacity": 1
-            }
-        },
-        "newAppServicePlanLocation": {
-            "value": ""
-        },
-        "newWebAppName": {
-            "value": ""
+                "tier": "Free",
+                "name": "F1"
+              }
         }
     }
 }

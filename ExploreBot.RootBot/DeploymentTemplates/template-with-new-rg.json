@@ -26,55 +26,30 @@
                 "description": "Active Directory App Password, set as MicrosoftAppPassword in the Web App's Application Settings."
             }
         },
-        "botId": {
-            "type": "string",
-            "metadata": {
-                "description": "The globally unique and immutable bot ID. Also used to configure the displayName of the bot, which is mutable."
-            }
-        },
         "botSku": {
             "type": "string",
             "metadata": {
                 "description": "The pricing tier of the Bot Service Registration. Acceptable values are F0 and S1."
-            }
-        },
-        "newAppServicePlanName": {
-            "type": "string",
-            "metadata": {
-                "description": "The name of the App Service Plan."
-            }
+            },
+            "defaultValue": "F0"
         },
         "newAppServicePlanSku": {
             "type": "object",
             "defaultValue": {
-                "name": "S1",
-                "tier": "Standard",
-                "size": "S1",
-                "family": "S",
-                "capacity": 1
-            },
+                "tier": "Free",
+                "name": "F1"
+              },
             "metadata": {
-                "description": "The SKU of the App Service Plan. Defaults to Standard values."
-            }
-        },
-        "newAppServicePlanLocation": {
-            "type": "string",
-            "metadata": {
-                "description": "The location of the App Service Plan. Defaults to \"westus\"."
-            }
-        },
-        "newWebAppName": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "The globally unique name of the Web App. Defaults to the value passed in for \"botId\"."
+                "description": "The SKU of the App Service Plan. Defaults to Freemium values."
             }
         }
     },
     "variables": {
-        "appServicePlanName": "[parameters('newAppServicePlanName')]",
-        "resourcesLocation": "[parameters('newAppServicePlanLocation')]",
-        "webAppName": "[if(empty(parameters('newWebAppName')), parameters('botId'), parameters('newWebAppName'))]",
+        "suffix": "[take(uniqueString(parameters('groupName')), 7)]",
+        "appServicePlanName": "[concat(parameters('groupName'), '-', variables('suffix'))]",
+        "resourcesLocation": "[parameters('groupLocation')]",
+        "webAppName": "[concat(parameters('groupName'), '-', variables('suffix'))]",
+        "botId": "[concat(parameters('groupName'), '-', variables('suffix'))]",
         "siteHost": "[concat(variables('webAppName'), '.azurewebsites.net')]",
         "botEndpoint": "[concat('https://', variables('siteHost'), '/api/messages')]"
     },
@@ -155,15 +130,15 @@
                         {
                             "apiVersion": "2017-12-01",
                             "type": "Microsoft.BotService/botServices",
-                            "name": "[parameters('botId')]",
+                            "name": "[variables('botId')]",
                             "location": "global",
                             "kind": "bot",
                             "sku": {
                                 "name": "[parameters('botSku')]"
                             },
                             "properties": {
-                                "name": "[parameters('botId')]",
-                                "displayName": "[parameters('botId')]",
+                                "name": "[variables('botId')]",
+                                "displayName": "[variables('botId')]",
                                 "endpoint": "[variables('botEndpoint')]",
                                 "msaAppId": "[parameters('appId')]",
                                 "developerAppInsightsApplicationId": null,
