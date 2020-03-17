@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/ExploreBot.RootBot/ExploreBot.RootBot.csproj",
+                "${workspaceFolder}/ExploreBot.sln",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

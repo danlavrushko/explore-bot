@@ -5,7 +5,7 @@
    "version": "0.2.0",
    "configurations": [
         {
-            "name": ".NET Core Launch (web)",
+            "name": "Root",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
@@ -24,13 +24,42 @@
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
-            }
+            },
+            "justMyCode": false,
+            "suppressJITOptimizations": true
         },
         {
-            "name": ".NET Core Attach",
+            "name": "Echo",
             "type": "coreclr",
-            "request": "attach",
-            "processId": "${command:pickProcess}"
+            "request": "launch",
+            "preLaunchTask": "build",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/ExploreBot.EchoSkill/bin/Debug/netcoreapp2.2/ExploreBot.EchoSkill.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/ExploreBot.EchoSkill",
+            "stopAtEntry": false,
+            // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "^\\s*Now listening on:\\s+(https?://\\S+)"                
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            },
+            "justMyCode": false,
+            "suppressJITOptimizations": true
         }
+    ],
+    "compounds": [
+      {
+        "name": "Root/Echo",
+        "configurations": ["Root", "Echo"],
+        "preLaunchTask": "build",
+        "justMyCode": false,
+        "suppressJITOptimizations": true
+      }
     ]
 }
